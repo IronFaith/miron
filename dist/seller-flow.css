@@ -67,7 +67,6 @@ dialog.seller-dialog{padding:0;width:min(720px,calc(100% - 40px));max-height:92d
 .lead-reasons li+li{margin-top:5px}
 .seller-dialog .lead-priority-note{font-size:10px;line-height:1.7;margin-top:15px;color:var(--muted)}
 .lead-demo-link{display:inline-block;margin-top:14px;padding-block:4px;font-size:12px;font-weight:700;color:var(--white);text-decoration:underline;text-underline-offset:4px}
-.preview-note .lead-demo-link{margin:0 0 0 14px;font-size:10px}
 .lead-contact{display:grid;gap:5px;padding:20px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
 .lead-contact-label{font-size:11px;color:var(--muted)}
 .lead-contact strong{font-size:15px;font-weight:600;color:var(--white)}

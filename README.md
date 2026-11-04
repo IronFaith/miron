@@ -28,7 +28,7 @@ Run the behavior tests with `node --test`.
 
 ## Realtor video demo
 
-Use **Watch lead demo (30 sec)** in the site's top preview bar or in a lead's priority card. It opens https://ironfaith.github.io/miron/demo/ in a new tab so questionnaire answers stay intact. You can also share `dist/demo/miron-lead-demo.mp4`. It uses one fictional seller with three sets of timing/intent answers to illustrate hot, warm, and cold priorities, then shows the buyer confirmation checklist. It is an illustrated walkthrough, with no audio. The player includes optional captions and a text transcript.
+The **Hot, warm or cold?** video banner sits directly below the site's header, with a thumbnail, play icon, and **Watch demo** button. It opens https://ironfaith.github.io/miron/demo/. **Watch lead demo (30 sec)** is also available in a lead's priority card, where it opens a new tab to preserve questionnaire answers. You can also share `dist/demo/miron-lead-demo.mp4`. It uses one fictional seller with three sets of timing/intent answers to illustrate hot, warm, and cold priorities, then shows the buyer confirmation checklist. It is an illustrated walkthrough, with no audio. The player includes optional captions and a text transcript.
 
 The examples are checked against the actual `summarizeLead` function in `scripts/lead-demo-data.mjs`. To regenerate the video and poster on Windows, run `python scripts/render-lead-demo.py` with Pillow, Node.js, FFmpeg, and Segoe UI fonts available. This is only needed when changing the video; the website still has no build step.
 
