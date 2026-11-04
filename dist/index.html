@@ -12,8 +12,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="seller-flow.css">
   <script src="config.js" defer></script>
   <script src="app.js" defer></script>
+  <script src="seller-flow.mjs" type="module"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -22,7 +24,7 @@
     <a class="brand" href="#" aria-label="Miron home"><img src="assets/miron-logo-white-on-black.png" alt="Miron Home buyers" width="2048" height="683"></a>
     <button class="menu-toggle" aria-expanded="false" aria-controls="navigation">Menu <span aria-hidden="true">☰</span></button>
     <nav id="navigation" aria-label="Main navigation">
-      <a href="#how-it-works">How it works</a>
+      <a href="#sell" data-sell>Sell now</a>
       <a href="#about">Why Miron</a>
       <a href="#questions">Questions</a>
     </nav>
@@ -38,7 +40,7 @@
         <p class="hero-description">A home to sell. A next chapter to start. Let’s talk about your property, explore a cash offer, and find a clear path forward.</p>
         <div class="hero-actions">
           <a class="button" href="#contact" data-call><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6.7 3.5 4 4.8c-2 1.2.8 7.5 4.6 11.3s10.1 6.6 11.3 4.6l1.3-2.7-4.9-3-1.8 1.8a17 17 0 0 1-7.3-7.3L9 7.7Z"/></svg>Call now for help</a>
-          <a class="text-link" href="#how-it-works">See how it works <span aria-hidden="true">↗</span></a>
+          <a class="button button-outline" href="#sell" data-sell>Sell now <span aria-hidden="true">↗</span></a>
         </div>
         <p class="quiet-note">Start with a conversation. Decide what works for you.</p>
       </div>
@@ -91,6 +93,22 @@
 
   <a class="mobile-call button" href="#contact" data-call><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6.7 3.5 4 4.8c-2 1.2.8 7.5 4.6 11.3s10.1 6.6 11.3 4.6l1.3-2.7-4.9-3-1.8 1.8a17 17 0 0 1-7.3-7.3L9 7.7Z"/></svg>Call now for help</a>
   <dialog id="contact-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"><button class="dialog-close" aria-label="Close contact information">×</button><p class="section-kicker">Miron website preview</p><h2 id="dialog-title">A conversation<br>starts here.</h2><p id="dialog-description">The business phone number hasn’t been added to this demo yet. Once it’s connected, this button will start a call directly.</p><p class="dialog-note">This preview doesn’t collect or send personal information.</p><button class="button dialog-done">Back to the site</button></dialog>
-  <noscript><p class="noscript-note wrap">This is a website preview. Business contact details are not available yet.</p></noscript>
+  <dialog id="sell" class="seller-dialog" aria-labelledby="seller-title" aria-describedby="seller-description">
+    <div class="seller-topbar"><span class="seller-wordmark">Miron<span>Let’s talk about your home.</span></span><button type="button" class="seller-close" aria-label="Close questionnaire">×</button></div>
+    <div class="seller-progress-label"><span id="seller-phase">Your home</span><span id="seller-count">Question 1 of 10</span></div>
+    <progress id="seller-progress" max="10" value="1" aria-label="Questionnaire progress">1 of 10</progress>
+    <div class="seller-body">
+      <p class="seller-preview" id="seller-mode">Preview: use sample details. Nothing is sent.</p>
+      <h2 id="seller-title" tabindex="-1">Where’s the home you’d like to sell?</h2>
+      <p id="seller-description">Start with the property address, including city, state, and ZIP code.</p>
+      <form id="seller-form" novalidate>
+        <div id="seller-fields"></div>
+        <p id="seller-error" class="seller-error" role="alert"></p>
+        <div class="seller-actions"><button type="button" id="seller-back" class="seller-back">Back</button><button type="submit" id="seller-next" class="button">Continue <span aria-hidden="true">↗</span></button></div>
+      </form>
+      <p class="seller-footnote" id="seller-footnote">A few simple questions. You can go back and change any answer.</p>
+    </div>
+  </dialog>
+  <noscript><p class="noscript-note wrap">Please enable JavaScript to use the Sell now questionnaire. This is a website preview; business contact details are not available yet.</p></noscript>
 </body>
 </html>

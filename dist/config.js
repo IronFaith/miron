@@ -3,5 +3,8 @@ window.MIRON_CONFIG = Object.freeze({
   phone: '',
   phoneDisplay: '',
   serviceArea: '',
-  buyerName: ''
+  buyerName: '',
+  // Leave blank for preview. A configured HTTPS endpoint must accept POST JSON
+  // and return {"accepted":true} only after a lead is actually saved.
+  leadEndpoint: ''
 });
