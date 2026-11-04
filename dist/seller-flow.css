@@ -7,7 +7,7 @@ dialog.seller-dialog{padding:0;width:min(720px,calc(100% - 40px));max-height:92d
 .seller-topbar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 36px 18px;background:#080808;position:sticky;top:0;z-index:2}
 .seller-wordmark{font-size:26px;font-weight:800;letter-spacing:-1px;line-height:1.1}
 .seller-wordmark>span{font-size:10px;font-weight:400;letter-spacing:0;display:block;color:#aaa;margin-top:6px}
-.seller-close{height:40px;width:40px;border:1px solid #333;border-radius:50%;background:transparent;color:white;line-height:1;font-size:25px}
+.seller-close{min-height:40px;padding:0 12px;border:1px solid #333;border-radius:5px;background:transparent;color:white;line-height:1;font-size:12px}
 .seller-close:hover{background:#222}
 .seller-progress-label{display:flex;justify-content:space-between;gap:20px;font-size:11px;color:#aaa;padding:10px 36px 12px}
 .seller-dialog progress{display:block;appearance:none;width:calc(100% - 72px);height:3px;border:0;border-radius:3px;overflow:hidden;margin:0 36px;background:#292929}
@@ -59,7 +59,6 @@ dialog.seller-dialog{padding:0;width:min(720px,calc(100% - 40px));max-height:92d
 .lead-priority-hot{--lead-signal:#ecad91}.lead-priority-warm{--lead-signal:#dfc681}.lead-priority-cold{--lead-signal:#9dc5dc}
 .lead-priority-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
 .lead-badge{display:inline-flex;align-items:center;gap:8px;border:1px solid currentColor;border-radius:4px;padding:4px 10px;font-size:11px;font-weight:800;line-height:1.6;white-space:nowrap}
-.lead-badge:before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
 .lead-badge-hot{color:#ffc5ab;background:#39241d}.lead-badge-warm{color:#f2d995;background:#342d1c}.lead-badge-cold{color:#b9def3;background:#1b2c36}
 .lead-action{font-size:12px;font-weight:700;color:var(--white)}
 .seller-dialog .lead-next-step{color:var(--white);font-size:15px;font-weight:600;line-height:1.7;margin-top:16px}

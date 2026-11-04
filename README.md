@@ -2,6 +2,8 @@
 
 A simple black-and-white website demo for a business that buys homes for cash.
 
+Use plain text labels throughout the site. Do not add emoji, decorative arrows, or decorative UI icons. Keep the Miron logo and functional color swatches.
+
 ## Preview
 
 Run `python -m http.server 4317 --directory dist --bind 127.0.0.1` and open `http://127.0.0.1:4317`.

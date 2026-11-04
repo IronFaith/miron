@@ -378,9 +378,7 @@ if (offerStart && offerPriorities) {
     button.type = 'button';
     button.setAttribute('aria-haspopup', 'dialog');
     button.setAttribute('aria-controls', 'sell');
-    const arrow = element('span', 'offer-priority-arrow', '→');
-    arrow.setAttribute('aria-hidden', 'true');
-    button.append(element('span', '', option), arrow);
+    button.textContent = option;
     button.addEventListener('click', () => {
       if (sending) return;
       if (!delivered) {
