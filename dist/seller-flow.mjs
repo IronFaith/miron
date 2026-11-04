@@ -351,18 +351,53 @@ back.addEventListener('click', () => {
 });
 dialog.querySelector('.seller-close').addEventListener('click', () => { if (!sending) dialog.close(); });
 dialog.addEventListener('cancel', event => { if (sending) event.preventDefault(); });
+
+function openSeller() {
+  document.querySelector('.menu-toggle').setAttribute('aria-expanded', 'false');
+  document.querySelector('#navigation').classList.remove('is-open');
+  dialog.showModal();
+  if (delivered) showDelivered(); else render();
+}
+
 document.querySelectorAll('[data-sell]').forEach(link => {
   link.setAttribute('aria-haspopup', 'dialog');
   link.addEventListener('click', event => {
     event.preventDefault();
-    document.querySelector('.menu-toggle').setAttribute('aria-expanded', 'false');
-    document.querySelector('#navigation').classList.remove('is-open');
-    dialog.showModal();
-    if (delivered) showDelivered(); else render();
+    openSeller();
   });
 });
+
+// The homepage choice is question one, so the dialog continues at question two.
+const offerStart = document.querySelector('.offer-start');
+const offerPriorities = document.querySelector('#offer-priorities');
+if (offerStart && offerPriorities) {
+  const firstQuestion = questions[0];
+  document.querySelector('#offer-start-title').textContent = firstQuestion.title;
+  firstQuestion.options.forEach(option => {
+    const button = element('button', 'offer-priority');
+    button.type = 'button';
+    button.setAttribute('aria-haspopup', 'dialog');
+    button.setAttribute('aria-controls', 'sell');
+    const arrow = element('span', 'offer-priority-arrow', '→');
+    arrow.setAttribute('aria-hidden', 'true');
+    button.append(element('span', '', option), arrow);
+    button.addEventListener('click', () => {
+      if (sending) return;
+      if (!delivered) {
+        answers[firstQuestion.id] = option;
+        index = 1;
+        editing = false;
+        editSnapshot = null;
+        previewing = false;
+      }
+      openSeller();
+    });
+    offerPriorities.append(button);
+  });
+  offerStart.hidden = false;
+  if (!connected) document.querySelector('.offer-start-note').textContent = 'Website preview. Your answers are not sent.';
+}
 // The seller video links straight back into the same questionnaire.
 if (window.location.hash === '#sell') {
-  dialog.showModal();
-  render();
+  openSeller();
 }

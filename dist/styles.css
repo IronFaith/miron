@@ -26,6 +26,20 @@
 .hero h1{font-size:clamp(44px,4.7vw,66px);letter-spacing:-3px}
 .hero-actions{gap:12px}.hero-video-link{margin-top:21px;color:var(--muted);font-size:11px}.hero-video-link span{font-size:16px}
 .hero-service-area{font-size:12px;margin-top:12px}
+.offer-start{padding:30px;background:var(--panel);border:1px solid var(--line);border-radius:9px;min-width:0}
+.offer-start-top{display:flex;align-items:center;justify-content:space-between;gap:15px;font-size:11px;line-height:1.5;color:var(--muted)}
+.offer-start-top p{color:var(--white);font-weight:600}.offer-start-top>span{white-space:nowrap}
+.offer-start-progress{height:2px;margin:20px 0 26px;background:var(--line)}.offer-start-progress>span{display:block;width:10%;height:100%;background:var(--white)}
+.offer-start h2{font-size:31px;line-height:1.2;letter-spacing:-1px;max-width:390px;font-weight:600}
+.offer-start-help{font-size:12px;margin-top:12px}
+.offer-priorities{display:grid;gap:9px;margin-top:24px}
+.offer-priority{display:flex;justify-content:space-between;align-items:center;gap:15px;width:100%;min-height:49px;padding:13px 16px;border:1px solid var(--line);border-radius:5px;background:var(--black);color:var(--white);font-size:13px;text-align:left;line-height:1.5;transition:border-color .15s,background .15s}
+.offer-priority:hover{border-color:var(--white);background:var(--panel)}.offer-priority:focus-visible{outline-color:var(--white);outline-offset:3px}
+.offer-priority-arrow{font-size:19px;color:var(--muted);line-height:1}
+.offer-start-note{font-size:10px;margin-top:19px}
+@media(max-width:1100px) and (min-width:801px){.offer-start{padding:25px}.offer-start h2{font-size:28px}}
+@media(max-width:800px){.offer-start{padding:26px}.hero-copy{max-width:none}}
+@media(max-width:480px){.offer-start{padding:23px 20px}.offer-start h2{font-size:28px}.offer-start-top{font-size:10px}.offer-priority{min-height:48px;font-size:12px}.hero-actions .button{padding-inline:15px}}
 .situation-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:25px}
 .situation-grid article{padding:25px 0 0;border-top:1px solid var(--line)}
 .situation-number{display:block;color:var(--muted);font-size:10px;letter-spacing:.08em;margin-bottom:23px}
