@@ -216,6 +216,12 @@ function renderLeadPreview() {
   const reasons = element('ul', 'lead-reasons');
   lead.reasons.forEach(reason => reasons.append(element('li', '', reason)));
   hero.append(reasons, element('p', 'lead-priority-note', 'Priority reflects selling intent and timing. It is not a verified offer or an assessment of property value.'));
+  const demoLink = element('a', 'lead-demo-link', 'Watch lead demo (30 sec)');
+  demoLink.href = 'demo/';
+  demoLink.target = '_blank';
+  demoLink.rel = 'noopener';
+  demoLink.setAttribute('aria-label', 'Watch lead demo, 30 seconds, opens in a new tab');
+  hero.append(demoLink);
   fields.append(hero);
 
   const contact = element('div', 'lead-contact');
