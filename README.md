@@ -16,7 +16,9 @@ Edit `dist/config.js`. Set `phone` to the verified international number, such as
 
 ## Seller questionnaire
 
-Sell now opens ten short screens and an editable review. The first eight answers are quick choices, starting with the seller's priorities. Only the property address, name, and one contact method require typing. Size and price use ranges with an unsure option. Answers remain in tab memory, survive closing and reopening the dialog, and clear on page refresh. The preview asks visitors to use sample details and can download a local text summary. It does not submit or persist a lead.
+Sell now opens ten short screens and an editable review. The first eight answers are quick choices, starting with the seller's priorities. Only the property address, name, and one contact method require typing. Size and price use ranges with an unsure option. Answers remain in tab memory, survive closing and reopening the dialog, and clear on page refresh. In demo mode, **Preview this lead** opens a buyer summary instead of downloading a file. It shows the seller, contact method, property, selling plans, and reasons for the follow-up priority. It does not submit or persist a lead.
+
+Lead priority uses only timing and stated selling intent: **Hot** means within three months and beyond exploring; **Warm** means three to six months, uncertain timing, or exploratory near-term interest; **Cold** means over six months or exploring without near-term timing. Price, address, property condition, occupancy, and seller identity do not change priority. The buyer checklist gives contextual prompts to confirm contact/intent, authority to sell, and property details. Checklist marks are manual, remain in tab memory, and reset when answers change. No lead is automatically verified or approved. The priority legend is available inside the preview. Connected submission mode retains the seller review and consent flow.
 
 To enable delivery, configure `leadEndpoint` in `dist/config.js` with the business's approved HTTPS endpoint or a same-origin path. This frontend does not include a receiving backend. An endpoint must validate and save the lead, enforce appropriate limits, and return JSON `{"accepted":true}` only after actual acceptance; support `requestId` deduplication so retries do not duplicate leads. Cross-origin endpoints must allow this site's origin and JSON POST requests. Keep secrets on the server; this configuration is public. Before transmission, the seller reviews answers and explicitly agrees to share them with Miron for contact about the property. No marketing/text-message enrollment is included.
 
@@ -33,6 +35,7 @@ Before promoting the site, verify the buying terms, service area, actual busines
 - `dist/app.js`: contact configuration, mobile menu, and dialog behavior.
 - `dist/seller-flow.mjs` and `dist/seller-flow.css`: questionnaire presentation and interaction.
 - `dist/seller-questions.mjs`: question content, validation, summaries, and delivery contract.
+- `dist/lead-summary.mjs`: explainable follow-up priority and buyer review prompts.
 - `dist/theme-preview.mjs`, `dist/theme-preview.css`, and `dist/palettes.mjs`: browser-local palette controls and readable theme colors.
 - `dist/assets/`: generated logo and house illustration.
 - `docs/asset-prompts.txt`: exact prompts and generation provenance.

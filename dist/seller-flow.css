@@ -53,4 +53,39 @@ dialog.seller-dialog{padding:0;width:min(720px,calc(100% - 40px));max-height:92d
 .seller-consent{display:flex;align-items:flex-start;gap:12px;font-size:12px;color:#bbb;line-height:1.8;margin-top:24px}
 .seller-consent input{margin-top:5px;accent-color:#fff;width:17px;height:17px;flex-shrink:0}
 .seller-dialog .seller-success{font-size:14px;border-top:1px solid #333;padding-top:25px}
+.seller-dialog.is-lead-preview h2{overflow-wrap:anywhere}
+.seller-dialog.is-lead-preview #seller-description{font-size:14px;max-width:none;overflow-wrap:anywhere;color:var(--muted)}
+.lead-priority{border:1px solid var(--line);border-left:3px solid var(--lead-signal);border-radius:6px;padding:20px;background:var(--preview-field,#141414)}
+.lead-priority-hot{--lead-signal:#ecad91}.lead-priority-warm{--lead-signal:#dfc681}.lead-priority-cold{--lead-signal:#9dc5dc}
+.lead-priority-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.lead-badge{display:inline-flex;align-items:center;gap:8px;border:1px solid currentColor;border-radius:4px;padding:4px 10px;font-size:11px;font-weight:800;line-height:1.6;white-space:nowrap}
+.lead-badge:before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+.lead-badge-hot{color:#ffc5ab;background:#39241d}.lead-badge-warm{color:#f2d995;background:#342d1c}.lead-badge-cold{color:#b9def3;background:#1b2c36}
+.lead-action{font-size:12px;font-weight:700;color:var(--white)}
+.seller-dialog .lead-next-step{color:var(--white);font-size:15px;font-weight:600;line-height:1.7;margin-top:16px}
+.lead-reasons{padding-left:17px;margin:12px 0 0;color:var(--muted);font-size:12px;line-height:1.8}
+.lead-reasons li+li{margin-top:5px}
+.seller-dialog .lead-priority-note{font-size:10px;line-height:1.7;margin-top:15px;color:var(--muted)}
+.lead-contact{display:grid;gap:5px;padding:20px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+.lead-contact-label{font-size:11px;color:var(--muted)}
+.lead-contact strong{font-size:15px;font-weight:600;color:var(--white)}
+.lead-section{margin-top:26px}
+.lead-section h3{font-size:16px;font-weight:700;letter-spacing:-.3px;color:var(--white)}
+.lead-facts{display:grid;grid-template-columns:1fr 1fr;column-gap:24px;margin:9px 0 0}
+.lead-facts>div{padding:13px 0;border-bottom:1px solid var(--line);min-width:0}
+.lead-facts dt{font-size:10px;color:var(--muted);margin-bottom:5px}
+.lead-facts dd{font-size:12px;color:var(--white);margin:0;overflow-wrap:anywhere}
+.lead-check-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.lead-check-count{font-size:11px;color:var(--muted)}
+.seller-dialog .lead-section-note{font-size:11px;color:var(--muted);line-height:1.8;margin:8px 0 4px}
+.lead-check{display:flex;align-items:flex-start;gap:12px;padding:16px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.lead-check input{width:17px;height:17px;margin:3px 0 0;flex-shrink:0;accent-color:var(--preview-accent-ink,#fff)}
+.lead-check strong{display:block;font-size:12px;font-weight:600;color:var(--white)}
+.lead-check-detail{display:block;font-size:11px;color:var(--muted);line-height:1.8;margin-top:4px}
+.lead-guide{margin-top:25px;border:0;border-bottom:1px solid var(--line)}
+.lead-guide summary{font-size:12px;line-height:1.7;padding:12px 0;color:var(--white)}
+.lead-guide summary:after{font-size:18px}
+.seller-dialog .lead-guide p{display:flex;align-items:flex-start;gap:12px;font-size:11px;line-height:1.8;margin:0;padding:0 0 16px;color:var(--muted)}
+.lead-guide .lead-badge{min-width:70px;justify-content:center;font-size:10px;flex-shrink:0}
+@media(max-width:420px){.lead-priority{padding:16px}.lead-facts{column-gap:16px}.is-lead-preview .seller-actions{gap:12px}.is-lead-preview .seller-actions .button{min-width:135px}}
 @media(max-width:600px){dialog.seller-dialog{width:100%;max-width:100%;height:100dvh;max-height:100dvh;margin:0;border:0;border-radius:0}.seller-topbar{padding:20px 22px 16px}.seller-progress-label{padding:12px 22px}.seller-dialog progress{width:calc(100% - 44px);margin-inline:22px}.seller-body{padding:23px 22px 28px}.seller-dialog h2{font-size:30px;letter-spacing:-1px}.seller-dialog .seller-preview{font-size:10px;margin-bottom:23px}.seller-choices{grid-template-columns:1fr}.seller-option{min-height:56px;padding:14px}.seller-actions{margin-top:20px}.seller-dialog .seller-footnote{padding-bottom:env(safe-area-inset-bottom,0px)}.seller-dialog #seller-description{font-size:13px}.hero-actions .button-outline{min-width:123px;padding-inline:20px}}

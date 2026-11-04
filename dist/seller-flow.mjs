@@ -1,4 +1,5 @@
 import { questions, validateQuestion, answerText, leadPayload, deliverLead } from './seller-questions.mjs';
+import { summarizeLead, priorityGuide } from './lead-summary.mjs';
 
 const dialog = document.querySelector('#sell');
 const form = document.querySelector('#seller-form');
@@ -22,6 +23,9 @@ let editSnapshot = null;
 let sending = false;
 let delivered = false;
 let lastRequest = null;
+let previewing = false;
+const buyerChecks = new Set();
+let checkedAnswersSnapshot = null;
 
 const element = (tag, className, content) => {
   const node = document.createElement(tag);
@@ -138,7 +142,7 @@ function renderReview() {
     label.append(check, element('span', '', 'I agree to share these answers with Miron and be contacted by my selected method about this property.'));
     fields.append(label);
   } else {
-    fields.append(element('p', 'seller-demo-summary', 'Preview complete. Your answers have not been sent to Miron. You can download a copy; delivery will be enabled once the business contact is connected.'));
+    fields.append(element('p', 'seller-demo-summary', 'See how these answers become a lead for the buyer: a summary, follow-up priority, and checks to confirm. Nothing is sent.'));
   }
 }
 
@@ -148,6 +152,8 @@ function clearError() {
 }
 
 function render() {
+  if (previewing) { renderLeadPreview(); return; }
+  dialog.classList.remove('is-lead-preview');
   clearError();
   fields.replaceChildren();
   next.disabled = false;
@@ -165,10 +171,11 @@ function render() {
   title.textContent = review ? 'Does everything look right?' : question.title;
   description.textContent = review ? 'Take a quick look. You can change any answer below.' : question.help;
   mode.hidden = connected;
+  mode.textContent = 'Preview: use sample details. Nothing is sent.';
   footnote.textContent = connected ? 'Your answers are only sent when you review and submit.' : 'Answers stay in this tab. Closing the tab or refreshing clears them.';
   if (review) {
     renderReview();
-    next.textContent = connected ? 'Send my details' : 'Download my summary';
+    next.textContent = connected ? 'Send my details' : 'Preview this lead';
   } else {
     renderQuestion(question);
     next.textContent = editing ? 'Update summary' : index === questions.length - 1 ? 'Review my answers' : 'Continue';
@@ -177,17 +184,89 @@ function render() {
   dialog.scrollTop = 0;
 }
 
-function downloadSummary() {
-  const text = ['Miron — seller questionnaire', 'Preview summary. Not submitted to Miron.', '', ...questions.map(question => `${question.label}\n${answerText(question, answers)}\n`)].join('\n');
-  const url = URL.createObjectURL(new Blob([text], { type: 'text/plain;charset=utf-8' }));
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = 'miron-home-summary.txt';
-  document.body.append(link);
-  link.click();
-  link.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-  footnote.textContent = 'Your download was requested. Nothing has been sent to Miron.';
+function renderLeadPreview() {
+  const snapshotKey = JSON.stringify(leadPayload(answers));
+  if (checkedAnswersSnapshot !== snapshotKey) buyerChecks.clear();
+  checkedAnswersSnapshot = snapshotKey;
+  const lead = summarizeLead(answers);
+  clearError();
+  fields.replaceChildren();
+  dialog.classList.add('is-lead-preview');
+  count.textContent = 'Lead preview';
+  phase.textContent = 'Buyer view';
+  title.textContent = lead.name;
+  description.textContent = lead.address;
+  progress.value = questions.length;
+  progress.textContent = 'All answers complete';
+  mode.hidden = false;
+  mode.textContent = 'Demo buyer view. Nothing has been sent or independently verified.';
+  back.hidden = false;
+  back.disabled = false;
+  back.textContent = 'Edit answers';
+  next.hidden = false;
+  next.disabled = false;
+  next.textContent = 'Back to site';
+  footnote.textContent = 'Answers and checklist marks stay in this tab and clear on refresh.';
+
+  const hero = element('section', `lead-priority lead-priority-${lead.level}`);
+  hero.setAttribute('aria-label', 'Follow-up priority');
+  const heading = element('div', 'lead-priority-heading');
+  heading.append(element('span', `lead-badge lead-badge-${lead.level}`, lead.label), element('span', 'lead-action', lead.action));
+  hero.append(heading, element('p', 'lead-next-step', lead.next));
+  const reasons = element('ul', 'lead-reasons');
+  lead.reasons.forEach(reason => reasons.append(element('li', '', reason)));
+  hero.append(reasons, element('p', 'lead-priority-note', 'Priority reflects selling intent and timing. It is not a verified offer or an assessment of property value.'));
+  fields.append(hero);
+
+  const contact = element('div', 'lead-contact');
+  contact.append(element('span', 'lead-contact-label', `Preferred contact · ${lead.contact.method}`), element('strong', '', lead.contact.value));
+  fields.append(contact);
+
+  const snapshot = element('section', 'lead-section');
+  snapshot.append(element('h3', '', 'Property & selling plans'));
+  const facts = element('dl', 'lead-facts');
+  lead.facts.forEach(fact => {
+    const item = element('div');
+    item.append(element('dt', '', fact.label), element('dd', '', fact.value));
+    facts.append(item);
+  });
+  snapshot.append(facts);
+  fields.append(snapshot);
+
+  const review = element('section', 'lead-section');
+  const reviewHeading = element('div', 'lead-check-heading');
+  const checkCount = element('span', 'lead-check-count');
+  checkCount.setAttribute('role', 'status');
+  const updateCount = () => { checkCount.textContent = `${buyerChecks.size} of ${lead.checks.length} checked`; };
+  updateCount();
+  reviewHeading.append(element('h3', '', 'Buyer checklist'), checkCount);
+  review.append(reviewHeading, element('p', 'lead-section-note', 'Mark a check only after the buyer confirms it. These marks are a preview, not a saved verification.'));
+  lead.checks.forEach(check => {
+    const label = element('label', 'lead-check');
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.checked = buyerChecks.has(check.id);
+    input.addEventListener('change', () => {
+      if (input.checked) buyerChecks.add(check.id); else buyerChecks.delete(check.id);
+      updateCount();
+    });
+    const content = element('span');
+    content.append(element('strong', '', check.label), element('span', 'lead-check-detail', check.detail));
+    label.append(input, content);
+    review.append(label);
+  });
+  fields.append(review);
+
+  const guide = element('details', 'lead-guide');
+  guide.append(element('summary', '', 'How lead priority works'));
+  priorityGuide.forEach(item => {
+    const row = element('p');
+    row.append(element('span', `lead-badge lead-badge-${item.level}`, `${item.level[0].toUpperCase()}${item.level.slice(1)}`), element('span', '', item.text));
+    guide.append(row);
+  });
+  fields.append(guide);
+  title.focus({ preventScroll: true });
+  dialog.scrollTop = 0;
 }
 
 function showDelivered() {
@@ -208,6 +287,7 @@ function showDelivered() {
 form.addEventListener('submit', async event => {
   event.preventDefault();
   if (sending) return;
+  if (previewing) { dialog.close(); return; }
   if (delivered) { dialog.close(); return; }
   if (index < questions.length) {
     const message = validateQuestion(questions[index], answers);
@@ -226,7 +306,7 @@ form.addEventListener('submit', async event => {
   // Revalidate the entire snapshot before any transmission.
   const invalidIndex = questions.findIndex(question => validateQuestion(question, answers));
   if (invalidIndex !== -1) { index = invalidIndex; editing = true; render(); return; }
-  if (!connected) { downloadSummary(); return; }
+  if (!connected) { previewing = true; render(); return; }
   if (!document.querySelector('#seller-consent').checked) {
     error.textContent = 'Please confirm that Miron may receive these answers and contact you about the property.';
     document.querySelector('#seller-consent').focus();
@@ -256,6 +336,7 @@ form.addEventListener('submit', async event => {
 
 back.addEventListener('click', () => {
   if (sending) return;
+  if (previewing) { previewing = false; render(); return; }
   if (editing && editSnapshot) answers = editSnapshot;
   index = editing ? questions.length : Math.max(0, index - 1);
   editing = false;
