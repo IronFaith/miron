@@ -26,9 +26,15 @@ The payload includes `requestId`, `source`, `answers`, and `contactConsent`. Onl
 
 Run the behavior tests with `node --test`.
 
+## Seller walkthrough
+
+The homepage focuses on selling as-is, with a **Sell now** primary action, repair/inheritance/property/moving situations, and three short steps. A prominent **See how selling to Miron works** banner below the hero opens https://ironfaith.github.io/miron/selling/. The 30-second video has on-screen text, optional captions, and a transcript; it has no audio. Its Sell now link opens the questionnaire directly. Mobile visitors have a fixed Sell now / Call now bar. Timing guidance reflects the seller's first priority answer without changing the questions or lead scoring.
+
+Regenerate this video and poster with `python scripts/render-seller-demo.py` (Pillow, FFmpeg, and Windows Segoe UI fonts required). There is no website build step.
+
 ## Realtor video demo
 
-The **Hot, warm or cold?** video banner sits directly below the site's header, with a thumbnail, play icon, and **Watch demo** button. It opens https://ironfaith.github.io/miron/demo/. **Watch lead demo (30 sec)** is also available in a lead's priority card, where it opens a new tab to preserve questionnaire answers. You can also share `dist/demo/miron-lead-demo.mp4`. It uses one fictional seller with three sets of timing/intent answers to illustrate hot, warm, and cold priorities, then shows the buyer confirmation checklist. It is an illustrated walkthrough, with no audio. The player includes optional captions and a text transcript.
+The separate buyer walkthrough remains at https://ironfaith.github.io/miron/demo/. **Watch lead demo (30 sec)** is available in a lead's priority card, where it opens a new tab to preserve questionnaire answers. You can also share `dist/demo/miron-lead-demo.mp4`. It uses one fictional seller with three sets of timing/intent answers to illustrate hot, warm, and cold priorities, then shows the buyer confirmation checklist. It is an illustrated walkthrough, with no audio. The player includes optional captions and a text transcript.
 
 The examples are checked against the actual `summarizeLead` function in `scripts/lead-demo-data.mjs`. To regenerate the video and poster on Windows, run `python scripts/render-lead-demo.py` with Pillow, Node.js, FFmpeg, and Segoe UI fonts available. This is only needed when changing the video; the website still has no build step.
 

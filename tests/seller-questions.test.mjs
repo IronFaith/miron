@@ -1,7 +1,19 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { questions, validateQuestion, answerText, leadPayload, deliverLead } from '../dist/seller-questions.mjs';
+import { questions, questionHelp, validateQuestion, answerText, leadPayload, deliverLead } from '../dist/seller-questions.mjs';
 const question = id => questions.find(item => item.id === id);
+
+test('timing guidance follows the current selling priority and other questions keep their guidance', () => {
+  const answers = { priority: 'Avoiding repairs' };
+  assert.match(questionHelp(question('timeline'), answers), /repairs/);
+  answers.priority = 'Selling quickly';
+  assert.match(questionHelp(question('timeline'), answers), /how soon/);
+  for (const priority of question('priority').options) {
+    assert.notEqual(questionHelp(question('timeline'), { priority }), question('timeline').help);
+    assert.equal(questionHelp(question('condition'), { priority }), question('condition').help);
+  }
+  assert.equal(questionHelp(question('timeline'), {}), question('timeline').help);
+});
 
 test('quick choices accept listed ranges and unsure answers without written explanations', () => {
   assert.ok(validateQuestion(question('address'), { address: '123' }));

@@ -13,6 +13,18 @@ export const questions = [
 
 const text = value => String(value ?? '').trim();
 
+export function questionHelp(question, answers) {
+  if (question.id !== 'timeline') return question.help;
+  const helpByPriority = {
+    'Avoiding repairs': 'We’ll keep the repairs in mind. When would a move work for you?',
+    'Selling quickly': 'Timing matters. Tell us how soon you’d like to move.',
+    'Getting the right price': 'We’ll keep your price goals in mind. When are you considering a sale?',
+    'Choosing my move date': 'Let’s start with the timing that works for you.',
+    'I’m just exploring': 'Just exploring is fine. Choose the timing closest to your plans.'
+  };
+  return Object.hasOwn(helpByPriority, answers.priority) ? helpByPriority[answers.priority] : question.help;
+}
+
 export function validateQuestion(question, answers) {
   const value = answers[question.id];
   if (question.type === 'address') return text(value).length >= 10 && text(value).length <= 240 ? '' : 'Please enter the street address, city, state, and ZIP code.';

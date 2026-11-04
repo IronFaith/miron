@@ -31,9 +31,10 @@
     document.querySelector('[data-contact-caption]').textContent = config.phoneDisplay || phone;
   }
   if (config.serviceArea) {
-    const area = document.querySelector('[data-service-area]');
-    area.textContent = `Serving ${config.serviceArea}`;
-    area.hidden = false;
+    document.querySelectorAll('[data-service-area]').forEach(area => {
+      area.textContent = `Serving ${config.serviceArea}`;
+      area.hidden = false;
+    });
   }
   if (config.buyerName) {
     const buyer = document.querySelector('[data-buyer-detail]');

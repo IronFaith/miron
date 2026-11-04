@@ -1,4 +1,4 @@
-import { questions, validateQuestion, answerText, leadPayload, deliverLead } from './seller-questions.mjs';
+import { questions, questionHelp, validateQuestion, answerText, leadPayload, deliverLead } from './seller-questions.mjs?v=seller-update-1';
 import { summarizeLead, priorityGuide } from './lead-summary.mjs';
 
 const dialog = document.querySelector('#sell');
@@ -169,7 +169,7 @@ function render() {
   back.hidden = index === 0 && !editing;
   back.textContent = editing ? 'Cancel edit' : 'Back';
   title.textContent = review ? 'Does everything look right?' : question.title;
-  description.textContent = review ? 'Take a quick look. You can change any answer below.' : question.help;
+  description.textContent = review ? 'Take a quick look. You can change any answer below.' : questionHelp(question, answers);
   mode.hidden = connected;
   mode.textContent = 'Preview: use sample details. Nothing is sent.';
   footnote.textContent = connected ? 'Your answers are only sent when you review and submit.' : 'Answers stay in this tab. Closing the tab or refreshing clears them.';
@@ -361,3 +361,8 @@ document.querySelectorAll('[data-sell]').forEach(link => {
     if (delivered) showDelivered(); else render();
   });
 });
+// The seller video links straight back into the same questionnaire.
+if (window.location.hash === '#sell') {
+  dialog.showModal();
+  render();
+}
