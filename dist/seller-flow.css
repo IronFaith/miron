@@ -21,12 +21,10 @@ dialog.seller-dialog{padding:0;width:min(720px,calc(100% - 40px));max-height:92d
 #seller-fields{min-height:160px}
 .seller-input-wrap{margin-bottom:16px}
 .seller-label{display:block;color:#ddd;font-size:12px;margin-bottom:9px}
-.seller-dialog input:not([type=radio]):not([type=checkbox]),.seller-dialog textarea{width:100%;font:inherit;font-size:16px;background:#141414;color:#fff;border:1px solid #484848;border-radius:5px;padding:15px 14px;line-height:1.6;outline:0}
-.seller-dialog textarea{resize:vertical;min-height:80px;max-height:190px;font-size:13px}
-.seller-dialog input::placeholder,.seller-dialog textarea::placeholder{color:#777}
-.seller-dialog input:focus-visible,.seller-dialog textarea:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.seller-dialog input:not([type=radio]):not([type=checkbox]){width:100%;font:inherit;font-size:16px;background:#141414;color:#fff;border:1px solid #484848;border-radius:5px;padding:15px 14px;line-height:1.6;outline:0}
+.seller-dialog input::placeholder{color:#777}
+.seller-dialog input:focus-visible{outline:2px solid #fff;outline-offset:3px}
 .seller-dialog .seller-input-help{font-size:11px;color:#929292;margin-top:10px;line-height:1.8}
-.seller-field-row{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:14px}
 .seller-choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0;margin:0;border:0;min-width:0}
 .seller-option{position:relative;display:flex;align-items:center;gap:12px;font-size:13px;line-height:1.5;min-height:64px;padding:16px;border:1px solid #393939;border-radius:5px;background:#101010;cursor:pointer;transition:background .15s,border-color .15s}
 .seller-option:hover{border-color:#999;background:#191919}
@@ -37,10 +35,8 @@ dialog.seller-dialog{padding:0;width:min(720px,calc(100% - 40px));max-height:92d
 .seller-methods{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0;margin:20px 0;border:0}
 .seller-methods legend{margin-bottom:10px}
 .seller-methods .seller-option{min-height:54px;padding:12px 15px}
-.repair-notes{margin-top:22px}
-.seller-skip,.seller-edit,.seller-back{background:transparent;border:0;padding:10px 0;font:inherit;color:#bbb;cursor:pointer;font-size:12px;text-decoration:underline;text-underline-offset:4px}
-.seller-skip{margin-top:18px}
-.seller-skip:hover,.seller-edit:hover,.seller-back:hover{color:#fff}
+.seller-edit,.seller-back{background:transparent;border:0;padding:10px 0;font:inherit;color:#bbb;cursor:pointer;font-size:12px;text-decoration:underline;text-underline-offset:4px}
+.seller-edit:hover,.seller-back:hover{color:#fff}
 .seller-actions{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:14px;padding:15px 0 5px;background:#080808}
 .seller-actions .button{margin-left:auto;min-width:155px}
 .seller-actions .button:disabled{opacity:.6;cursor:wait}
@@ -57,4 +53,4 @@ dialog.seller-dialog{padding:0;width:min(720px,calc(100% - 40px));max-height:92d
 .seller-consent{display:flex;align-items:flex-start;gap:12px;font-size:12px;color:#bbb;line-height:1.8;margin-top:24px}
 .seller-consent input{margin-top:5px;accent-color:#fff;width:17px;height:17px;flex-shrink:0}
 .seller-dialog .seller-success{font-size:14px;border-top:1px solid #333;padding-top:25px}
-@media(max-width:600px){dialog.seller-dialog{width:100%;max-width:100%;height:100dvh;max-height:100dvh;margin:0;border:0;border-radius:0}.seller-topbar{padding:20px 22px 16px}.seller-progress-label{padding:12px 22px}.seller-dialog progress{width:calc(100% - 44px);margin-inline:22px}.seller-body{padding:23px 22px 28px}.seller-dialog h2{font-size:30px;letter-spacing:-1px}.seller-dialog .seller-preview{font-size:10px;margin-bottom:23px}.seller-choices{grid-template-columns:1fr}.seller-option{min-height:56px;padding:14px}.seller-field-row{grid-template-columns:1fr 1fr;gap:12px}.seller-field-row .seller-input-wrap:last-child{grid-column:1/-1}.seller-actions{margin-top:20px}.seller-dialog .seller-footnote{padding-bottom:env(safe-area-inset-bottom,0px)}.seller-dialog #seller-description{font-size:13px}.hero-actions .button-outline{min-width:123px;padding-inline:20px}}
+@media(max-width:600px){dialog.seller-dialog{width:100%;max-width:100%;height:100dvh;max-height:100dvh;margin:0;border:0;border-radius:0}.seller-topbar{padding:20px 22px 16px}.seller-progress-label{padding:12px 22px}.seller-dialog progress{width:calc(100% - 44px);margin-inline:22px}.seller-body{padding:23px 22px 28px}.seller-dialog h2{font-size:30px;letter-spacing:-1px}.seller-dialog .seller-preview{font-size:10px;margin-bottom:23px}.seller-choices{grid-template-columns:1fr}.seller-option{min-height:56px;padding:14px}.seller-actions{margin-top:20px}.seller-dialog .seller-footnote{padding-bottom:env(safe-area-inset-bottom,0px)}.seller-dialog #seller-description{font-size:13px}.hero-actions .button-outline{min-width:123px;padding-inline:20px}}

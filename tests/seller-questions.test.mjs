@@ -3,18 +3,22 @@ import assert from 'node:assert/strict';
 import { questions, validateQuestion, answerText, leadPayload, deliverLead } from '../dist/seller-questions.mjs';
 const question = id => questions.find(item => item.id === id);
 
-test('property answers require a real selection while unknown size and price can be skipped', () => {
+test('quick choices accept listed ranges and unsure answers without written explanations', () => {
   assert.ok(validateQuestion(question('address'), { address: '123' }));
   assert.equal(validateQuestion(question('address'), { address: '123 Example St, Austin, TX 78701' }), '');
-  assert.ok(validateQuestion(question('propertyType'), { propertyType: 'unlisted value' }));
-  assert.equal(validateQuestion(question('propertyType'), { propertyType: 'Single-family home' }), '');
-  assert.equal(validateQuestion(question('layout'), { layout: {} }), '');
-  assert.equal(validateQuestion(question('layout'), { layout: { beds: '3', baths: '2.5', sqft: '1600' } }), '');
-  assert.ok(validateQuestion(question('layout'), { layout: { beds: '-1' } }));
-  assert.ok(validateQuestion(question('layout'), { layout: { baths: '2.3' } }));
-  assert.equal(validateQuestion(question('price'), { price: '' }), '');
-  assert.ok(validateQuestion(question('price'), { price: '-200000' }));
-  assert.equal(answerText(question('price'), { price: '250,000' }), '$250,000');
+  for (const item of questions.filter(item => item.type === 'choice')) {
+    assert.ok(validateQuestion(item, {}));
+    assert.ok(validateQuestion(item, { [item.id]: 'unlisted value' }));
+    for (const option of item.options) {
+      const answers = { [item.id]: option };
+      assert.equal(validateQuestion(item, answers), '');
+      assert.equal(answerText(item, answers), option);
+      assert.equal(leadPayload(answers)[item.id], option);
+    }
+  }
+  assert.equal(validateQuestion(question('size'), { size: 'I’m not sure' }), '');
+  assert.equal(validateQuestion(question('price'), { price: 'I’m not sure' }), '');
+  assert.equal(answerText(question('price'), { price: '$150,000–$299,999' }), '$150,000–$299,999');
 });
 
 test('contact validation follows the selected method and excludes an abandoned contact value', () => {

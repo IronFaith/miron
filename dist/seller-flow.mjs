@@ -75,30 +75,6 @@ function renderQuestion(question) {
     fields.append(inputField('Property address', 'address', { value: answers.address, autocomplete: 'street-address', placeholder: 'Street address, city, state, ZIP', update: value => { answers.address = value; } }));
     fields.append(element('p', 'seller-input-help', 'Include the unit number, if there is one.'));
   }
-  if (question.type === 'layout') {
-    answers.layout ||= { beds: '', baths: '', sqft: '' };
-    const row = element('div', 'seller-field-row');
-    for (const [key, label, placeholder] of [['beds', 'Bedrooms', 'e.g. 3'], ['baths', 'Bathrooms', 'e.g. 2.5'], ['sqft', 'Approx. square feet', 'e.g. 1600']]) {
-      row.append(inputField(label, key, { value: answers.layout[key], inputmode: key === 'baths' ? 'decimal' : 'numeric', maxLength: 9, placeholder, update: value => { answers.layout[key] = value; } }));
-    }
-    fields.append(row, element('p', 'seller-input-help', 'Don’t know the size? You can continue without it.'));
-  }
-  if (question.type === 'condition') {
-    const wrap = element('div', 'seller-input-wrap repair-notes');
-    const label = element('label', 'seller-label', 'Anything specific we should know? (optional)');
-    label.htmlFor = 'seller-repair-notes';
-    const input = document.createElement('textarea');
-    input.id = 'seller-repair-notes';
-    input.name = 'repairNotes';
-    input.rows = 2;
-    input.maxLength = 600;
-    input.placeholder = 'Roof, plumbing, foundation, recent updates…';
-    input.value = answers.repairNotes || '';
-    input.addEventListener('input', () => { answers.repairNotes = input.value; clearError(); });
-    wrap.append(label, input);
-    fields.append(wrap);
-  }
-  if (question.type === 'price') fields.append(inputField('Your target sale price (USD)', 'price', { value: answers.price, inputmode: 'numeric', maxLength: 14, placeholder: 'e.g. 250,000', help: 'This is your expectation, not a valuation or an offer.', update: value => { answers.price = value; } }));
   if (question.type === 'contact') {
     answers.contact ||= { name: '', method: 'email', email: '', phone: '' };
     const contact = answers.contact;
@@ -179,11 +155,12 @@ function render() {
   next.hidden = false;
   const review = index === questions.length;
   const question = questions[index];
-  count.textContent = review ? 'Ready to review' : `Question ${index + 1} of ${questions.length}`;
+  count.textContent = review ? 'Ready to review' : `${index + 1} of ${questions.length}`;
   phase.textContent = review ? 'Your home, at a glance' : question.phase;
-  progress.value = Math.min(index + 1, questions.length);
-  progress.textContent = `${Math.min(index + 1, questions.length)} of ${questions.length}`;
-  back.hidden = index === 0;
+  const completed = editing ? questions.length : index;
+  progress.value = completed;
+  progress.textContent = `${completed} of ${questions.length} complete`;
+  back.hidden = index === 0 && !editing;
   back.textContent = editing ? 'Cancel edit' : 'Back';
   title.textContent = review ? 'Does everything look right?' : question.title;
   description.textContent = review ? 'Take a quick look. You can change any answer below.' : question.help;
@@ -194,13 +171,7 @@ function render() {
     next.textContent = connected ? 'Send my details' : 'Download my summary';
   } else {
     renderQuestion(question);
-    next.textContent = editing ? 'Update summary' : index === questions.length - 1 ? 'Review my answers' : 'Continue ↗';
-    if (question.optional && !editing) {
-      const skip = element('button', 'seller-skip', 'I’m not sure — skip this');
-      skip.type = 'button';
-      skip.addEventListener('click', () => { answers[question.id] = question.type === 'layout' ? {} : ''; index++; render(); });
-      fields.append(skip);
-    }
+    next.textContent = editing ? 'Update summary' : index === questions.length - 1 ? 'Review my answers' : 'Continue';
   }
   title.focus({ preventScroll: true });
   dialog.scrollTop = 0;
@@ -243,7 +214,7 @@ form.addEventListener('submit', async event => {
     if (message) {
       error.textContent = message;
       fields.classList.add('has-error');
-      fields.querySelector('input,textarea')?.focus();
+      fields.querySelector('input')?.focus();
       return;
     }
     index = editing ? questions.length : index + 1;
