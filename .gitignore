@@ -1,0 +1,5 @@
+.sites-local/
+.superpowers/
+node_modules/
+*.zip
+qa/

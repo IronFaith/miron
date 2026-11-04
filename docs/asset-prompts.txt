@@ -1,0 +1,7 @@
+Generated using the built-in image_gen tool.
+
+Logo prompt:
+Edit the attached Miron logo. Keep exactly the same logo geometry, typography, spacing, horizontal composition, M roof symbol with doorway, and exact words "Miron" and "Home buyers". Change every part of the logo to solid pure white. Change the background to solid pure black #000000, opaque, not transparent. No gray outlines, no shadows, no blue, no new text. Crisp flat white logo on black. Preserve original horizontal 3:1 aspect ratio. Make this a clean minimal brand asset.
+
+House illustration prompt:
+Create a photorealistic monochrome editorial architectural image for a small local home-buying business website. A welcoming, modest single-story mid-century American suburban house with a pitched roof, small covered front porch, three steps and an inviting open front door. Mature tree branches softly framing one edge, a simple concrete path through the front yard. Human scale, ordinary well-loved home, not luxury real estate, no pool, no palm trees, no dramatic mansion. Afternoon light creates lovely natural shadow across exterior siding. Calm hopeful mood. Black and white photography with rich black shadows and soft white highlights, subtle film grain, cinematic but natural composition, landscape 4:3. No people, no signs, no text, no logo, no cars. Front exterior three-quarter view with the doorway visible. This is illustrative concept imagery, not a real company project.
