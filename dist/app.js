@@ -11,6 +11,25 @@
     navigation.classList.remove('is-open');
   };
 
+  const mobileActions = document.querySelector('.mobile-actions');
+  const heroActions = document.querySelector('.hero-actions');
+  const contactActions = document.querySelector('.contact-action');
+  if (mobileActions && heroActions && 'IntersectionObserver' in window) {
+    let passedHeroActions = false;
+    let contactActionsVisible = false;
+    const actionVisibility = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.target === heroActions) {
+          passedHeroActions = !entry.isIntersecting && entry.boundingClientRect.bottom <= 0;
+        }
+        if (entry.target === contactActions) contactActionsVisible = entry.isIntersecting;
+      });
+      mobileActions.hidden = !passedHeroActions || contactActionsVisible;
+    });
+    actionVisibility.observe(heroActions);
+    if (contactActions) actionVisibility.observe(contactActions);
+  }
+
   document.querySelectorAll('[data-call]').forEach(link => {
     if (hasPhone) {
       link.href = `tel:${phone}`;
