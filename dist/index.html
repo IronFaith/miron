@@ -30,9 +30,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="seller-flow.css">
+  <link rel="stylesheet" href="theme-preview.css">
   <script src="config.js" defer></script>
   <script src="app.js" defer></script>
   <script src="seller-flow.mjs" type="module"></script>
+  <script src="theme-preview.mjs" type="module"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -126,6 +128,17 @@
       <p class="seller-footnote" id="seller-footnote">A few simple questions. You can go back and change any answer.</p>
     </div>
   </dialog>
-  <noscript><p class="noscript-note wrap">Please enable JavaScript to use the Sell now questionnaire. This is a website preview; business contact details are not available yet.</p></noscript>
+  <button id="palette-toggle" class="palette-toggle" type="button" aria-controls="palette-panel" aria-expanded="false" hidden><span class="palette-current" aria-hidden="true"><i></i><i></i></span>Colors</button>
+  <aside id="palette-panel" class="palette-panel" aria-labelledby="palette-title" hidden>
+    <div class="palette-heading"><h2 id="palette-title">Site colors</h2><button type="button" class="palette-close" aria-label="Close color panel">×</button></div>
+    <p class="palette-intro">Try a palette or choose your own.</p>
+    <div id="palette-presets" class="palette-presets" role="group" aria-label="Color palettes"></div>
+    <div class="palette-field"><div><label for="palette-main">Main color</label><small>Page background</small></div><input type="color" id="palette-main" value="#000000"><input type="text" id="palette-main-hex" aria-label="Main color hex" aria-describedby="palette-error" value="#000000" maxlength="7" spellcheck="false" autocomplete="off"></div>
+    <div class="palette-field"><div><label for="palette-accent">Accent color</label><small>Buttons and highlights</small></div><input type="color" id="palette-accent" value="#ffffff"><input type="text" id="palette-accent-hex" aria-label="Accent color hex" aria-describedby="palette-error" value="#FFFFFF" maxlength="7" spellcheck="false" autocomplete="off"></div>
+    <p id="palette-error" class="palette-error" role="alert"></p>
+    <button id="palette-reset" class="palette-reset" type="button">Reset to black &amp; white</button>
+    <p id="palette-message" class="palette-message" role="status">Preview only. Changes stay in this browser.</p>
+  </aside>
+  <noscript><p class="noscript-note wrap">Please enable JavaScript to use the Sell now questionnaire and color preview. This is a website preview; business contact details are not available yet.</p></noscript>
 </body>
 </html>

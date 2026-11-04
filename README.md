@@ -8,6 +8,8 @@ Run `python -m http.server 4317 --directory dist --bind 127.0.0.1` and open `htt
 
 There is no build step or dependency installation. The publishable site is the `dist` directory.
 
+The **Colors** button opens six palette presets plus main/background and accent controls. Text contrast adjusts with the palette, including the seller questionnaire. Choices are saved only in the visitor's browser; they do not publish a new default for other visitors. **Reset to black & white** restores the original design. The shared-link image remains the original Miron logo.
+
 ## Activate contact details
 
 Edit `dist/config.js`. Set `phone` to the verified international number, such as `+1` followed by the real 10-digit number, and `phoneDisplay` to its readable version. Add a verified `serviceArea` and `buyerName` when available. All call links then use that number. With no phone, the call buttons open a clearly labeled demo notice.
@@ -20,7 +22,7 @@ To enable delivery, configure `leadEndpoint` in `dist/config.js` with the busine
 
 The payload includes `requestId`, `source`, `answers`, and `contactConsent`. Only the selected contact method is included. Requests use POST JSON with no cookies, no redirects, and a 15-second timeout. Unconfirmed or failed delivery retains the answers for retry and never displays a success message.
 
-Run the focused behavior tests with `node --test tests/seller-questions.test.mjs`.
+Run the behavior tests with `node --test`.
 
 Before promoting the site, verify the buying terms, service area, actual business identity, and required business disclosures. No specific price, closing period, fee waiver, or acceptance of a property is promised. The house illustration is AI-generated concept imagery, not a past project. The logo is an initial raster asset.
 
@@ -31,6 +33,7 @@ Before promoting the site, verify the buying terms, service area, actual busines
 - `dist/app.js`: contact configuration, mobile menu, and dialog behavior.
 - `dist/seller-flow.mjs` and `dist/seller-flow.css`: questionnaire presentation and interaction.
 - `dist/seller-questions.mjs`: question content, validation, summaries, and delivery contract.
+- `dist/theme-preview.mjs`, `dist/theme-preview.css`, and `dist/palettes.mjs`: browser-local palette controls and readable theme colors.
 - `dist/assets/`: generated logo and house illustration.
 - `docs/asset-prompts.txt`: exact prompts and generation provenance.
 
