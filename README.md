@@ -34,4 +34,8 @@ Before promoting the site, verify the buying terms, service area, actual busines
 - `dist/assets/`: generated logo and house illustration.
 - `docs/asset-prompts.txt`: exact prompts and generation provenance.
 
-The source repository and hosted demo are public: https://github.com/IronFaith/miron and https://miron-home-buyers.wlfhse.chatgpt.site. GitHub Pages is not enabled for this business site.
+Live demo on GitHub Pages: https://ironfaith.github.io/miron/
+
+Public source repository: https://github.com/IronFaith/miron
+
+The Pages workflow publishes `dist` when site files change on `main`. You can also run **Publish Miron to GitHub Pages** manually from the repository's Actions tab. The live site uses relative asset paths so it works under `/miron/`.

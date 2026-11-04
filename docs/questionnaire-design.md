@@ -14,7 +14,7 @@ Research consulted November 4, 2026:
 
 These topics informed Miron's own flow; competitors' eligibility criteria, timelines, and fees are not adopted. Buyer-specific underwriting, title, mortgage/payoff questions, agent agreements, and detailed inspections belong in follow-up, not this short first contact.
 
-Validation: three focused Node tests for property answers, contact data, and delivery confirmation/error behavior; browser walkthrough of steps, Back, edits, review, mobile layout, and demo completion. Preserve public access and publish to the existing Site; push the matching source to IronFaith/miron.
+Validation: three focused Node tests for property answers, contact data, and delivery confirmation/error behavior; browser walkthrough of steps, Back, edits, review, mobile layout, and demo completion. Preserve public access and publish from IronFaith/miron to GitHub Pages at https://ironfaith.github.io/miron/.
 
 Earlier verification covered retained values on Back and reopening, both contact methods, saved and canceled edits, and no horizontal overflow at 390px. The preview download action displayed its requested status; the in-app browser did not expose a download event, so file delivery was not confirmed there. No live lead was submitted because no destination was supplied.
 
